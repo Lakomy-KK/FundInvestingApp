@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fund App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header text-center">
+            <h1 th:text="'Witamy w aplikacji do wyliczania kwot funduszy inwestycyjnych'"></h1>
+        </div>
+            <form th:action="@{/calculate}" th:object="${investitionFundForm}" method="post">
+                    <div class="row form-group">
+                        <div class="col-md-2">
+                            <label>Wybierz styl inwestowania:</label>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" th:field="*{investStyle}" name="example" id="investStyle">
+                                <option value="0">Select Style</option>
+                                <option th:each="style : ${investingStyles}"
+                                        th:value="${style.investitionStyleId}"
+                                        th:text="${style.styleName}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <span class="alert alert-danger" th:if="${#fields.hasErrors('investStyle')}" th:errors="*{investStyle}"></span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-2">
+                            <label>Wybierz fundusze:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" th:field="*{fundList}"
+                                    style="height: 100%;"
+                                    size="12"
+                                    multiple="multiple"
+                                    name="example" id="fundList">
+                                <option th:each="fund : ${allFunds}"
+                                        th:value="${fund.fundId}"
+                                        th:text="${fund.fundName}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <span class="alert alert-danger" th:if="${#fields.hasErrors('fundList')}" th:errors="*{fundList}"></span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-2">
+                            <label>Wprowadź wartość inwestycji:</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" id="investitionAmount" th:field="*{investitionAmount}"></input>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-default" href="#">Oblicz</button>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="alert alert-danger" th:if="${#fields.hasErrors('investitionAmount')}" th:errors="*{investitionAmount}"></span>
+                        </div>
+                    </div>
+            </form>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <table class="table table-bordered" width="100%" id="dataTable" cellspacing="5">
+                        <p class="alert alert-danger" th:if="${error != null}" th:text="${error}"></p>
+                            <thead>
+                            <tr>
+                                <th>Lp</th>
+                                <th>Rodzaj</th>
+                                <th>Nazwa</th>
+                                <th>Kwota</th>
+                                <th>Procent</th>
+                            </tr>
+                            </thead>
+                        <tr th:each="singleInvestition : ${calculatedInvestitions}">
+                            <td th:text="${singleInvestition.investitionId}"></td>
+                            <td th:text="${singleInvestition.fundType}"></td>
+                            <td th:text="${singleInvestition.fundName}"></td>
+                            <td th:text="${singleInvestition.moneyAmount}"></td>
+                            <td th:text="${singleInvestition.percentage}"></td>
+                        </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-2">
+                        <label >Kwota nie zainwestowana:</label>
+                    </div>
+                    <div class="col-md-1">
+                        <label th:text="${moneyNotInvested}"></label>
+                    </div>
+                </div>
+        </div>
+    </body>
+</html>
