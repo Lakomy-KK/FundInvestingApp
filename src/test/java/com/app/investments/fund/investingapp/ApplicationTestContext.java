@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 
 @Configuration
-/*@ComponentScan(basePackages =  {
+@ComponentScan(basePackages =  {
 		"com.app.investments.fund.investingapp.fund.entity.executor",
 		"com.app.investments.fund.investingapp.fund.entity.service",
 		"com.app.investments.fund.investingapp.fund.type.executor",
@@ -35,8 +35,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 		"com.app.investments.fund.investingapp.investition_test.model",
 		"com.app.investments.fund.investingapp.investition_style.model",
 		"com.app.investments.fund.investingapp.single_investition.model"
-})*/
+})
 public class ApplicationTestContext {
-
 
 }

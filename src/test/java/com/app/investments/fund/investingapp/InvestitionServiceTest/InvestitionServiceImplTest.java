@@ -23,6 +23,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 				scripts = "/investition_test/delete_sample_data.sql") })
 public class InvestitionServiceImplTest {
 
+	// After fix of context tests will be written
 	@Test
 	public void getInvestitionByDateTest(){
 		Assert.assertTrue(true);
